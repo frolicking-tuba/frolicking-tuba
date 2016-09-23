@@ -1,3 +1,3 @@
-const toggleLoggedin = () => ({ type: 'TOGGLE_LOGGEDIN' });
+export const toggleLoggedin = () => ({ type: 'TOGGLE_LOGGEDIN' });
 
-export default toggleLoggedin;
+export const someOtherFunction = () => ({ type: 'SOME_ACTION' });

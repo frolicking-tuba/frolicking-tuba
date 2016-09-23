@@ -1,5 +1,5 @@
 /node_modules
 .DS_Store
-/client/public
+/client/public/bundle.js
 /env/config.json
 *.log

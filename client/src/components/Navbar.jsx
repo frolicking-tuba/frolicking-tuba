@@ -12,12 +12,6 @@ class NavbarComponent extends Component {
 
   render() {
 
-    const pricingLink = (<NavItem eventKey={2}>
-      <Link
-        to="/pricing"
-      >Pricing</Link>
-    </NavItem>);
-
     const teamLink = (<NavItem eventKey={3}>
       <Link
         to="/team"
@@ -104,7 +98,6 @@ class NavbarComponent extends Component {
         <Navbar.Collapse>
           <Nav>
             {this.props.authenticated ? '' : documentationLink}
-            {this.props.authenticated ? '' : pricingLink}
             {this.props.authenticated ? '' : teamLink}
           </Nav>
           {this.props.authenticated ? loggedInNav : authLinks}

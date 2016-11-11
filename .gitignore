@@ -7,3 +7,5 @@
 /env/config.json
 *.log
 dump.rdb
+*.swp
+

@@ -23,11 +23,10 @@ const Signin = () => (
     </Row>
     <Row>
       <Col md={6} mdOffset={3} className="no-account">
-        <p>Don't have an account?</p>
-        <Link
+        <p>Don't have an account?<Link
           to="/signup"
         >Sign Up
-        </Link>
+        </Link></p>
       </Col>
     </Row>
   </Grid>

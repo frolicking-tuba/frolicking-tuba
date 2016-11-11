@@ -18,11 +18,10 @@ const Signup = () => (
     </Row>
     <Row>
       <Col md={6} mdOffset={3} className="no-account">
-        <p>Already have an account?</p>
-        <Link
+        <p>Already have an account?   <Link
           to="/signin"
         >Sign In
-        </Link>
+        </Link></p>
       </Col>
     </Row>
   </Grid>

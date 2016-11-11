@@ -33,6 +33,29 @@ h2,h3,h5 {
   font-weight: bold;
 }
 
+/**
+ * Demo Styles
+ */
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
 //this is bad and who ever wrote it should feel bad
 .authPageHeader {
   margin-top:67px;
@@ -44,17 +67,15 @@ h2,h3,h5 {
 }
 
 .footer {
-  position: relative;
-
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
   font-family: 'Droid Sans';
   font-size: 0.8em;
-
-  padding: 1em;
-
-  text-align: center;
-  vertical-align: middle;
-
+  padding: 1rem;
   background-color: nth($light-colors, 3);
+  text-align: center;
 }
 
 #team-profiles {

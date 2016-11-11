@@ -14,7 +14,7 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import * as Actions from '../actions/AppActions';
 
 const Title = ({ text }) => (
-  <span>{text}</span>
+  <span id="apikeyname"><h4>{text}</h4></span>
 );
 
 Title.propTypes = { text: PropTypes.string };
@@ -32,7 +32,7 @@ const Key = ({ title, endpoint, keyString, showEditModal }) => {
     <Panel
       header={
         <div>
-          <Title text={title} id="apikeyname" />
+          <Title text={title} />
           <Button
             bsStyle="link"
             onClick={onSettingsClick}

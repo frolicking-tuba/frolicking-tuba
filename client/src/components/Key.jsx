@@ -14,7 +14,7 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import * as Actions from '../actions/AppActions';
 
 const Title = ({ text }) => (
-  <span id="apikeyname">{text}</span>
+  <span id="apikeyname"><h4>{text}</h4></span>
 );
 
 Title.propTypes = { text: PropTypes.string };

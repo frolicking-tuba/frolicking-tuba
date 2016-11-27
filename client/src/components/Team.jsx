@@ -41,12 +41,11 @@ const Team = () => (
           <Col xs={12} sm={6} md={3}>
             <img
               className="profile-image"
-              width="250"
+              width="225"
               role="presentation"
               src={member.image}
             />
             <h3>{member.name}</h3>
-            <p>{member.description}</p>
           </Col>
         ))
       }

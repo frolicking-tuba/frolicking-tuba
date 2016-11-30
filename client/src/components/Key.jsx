@@ -19,10 +19,10 @@ const Title = ({ text }) => (
 
 Title.propTypes = { text: PropTypes.string };
 
-const Key = ({ title, endpoint, keyString, showEditModal }) => {
+const Key = ({ title, endpoint, keyString, showApikeyModal }) => {
   const onSettingsClick = () => {
     // set editKeyModal.show = true and editKey = keyString
-    showEditModal(keyString);
+    showApikeyModal(keyString);
   };
 
   const scriptTagText = `<script src="https://d1p3e8i5yp3axf.cloudfront.net/\
@@ -76,7 +76,7 @@ Key.propTypes = {
   title: PropTypes.string,
   endpoint: PropTypes.string,
   keyString: PropTypes.string,
-  showEditModal: PropTypes.func
+  showApikeyModal: PropTypes.func
 };
 
 export default connect(null, Actions)(Key);

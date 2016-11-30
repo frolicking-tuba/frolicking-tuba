@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
 
 import Key from './Key.jsx';
-import CreateKeyModal from './CreateKeyModal.jsx';
-import EditKeyModal from './EditKeyModal.jsx';
+// import CreateKeyModal from './CreateKeyModal.jsx';
+// import EditKeyModal from './EditKeyModal.jsx';
+import ApiKeyModal from './ApiKeyModal.jsx';
 
 class Dashboard extends Component {
   componentWillMount() {
@@ -22,7 +23,7 @@ class Dashboard extends Component {
           <div className="create-api-key-div">
             <Button
               bsStyle="link"
-              onClick={() => this.props.actions.showModal()}
+              onClick={() => this.props.actions.showApikeyModal()}
               className="pull-right"
             >
               <Image className="plus-sign-icon" src="/plus_sign.svg" />
@@ -31,8 +32,7 @@ class Dashboard extends Component {
               </span>
             </Button>
           </div>
-          <CreateKeyModal />
-          <EditKeyModal />
+          <ApiKeyModal />
         </Row>
         <Row>
           <Col>
@@ -55,7 +55,7 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   keys: PropTypes.arrayOf(PropTypes.object),
-  showModal: PropTypes.func,
+  showApikeyModal: PropTypes.func,
   actions: PropTypes.objectOf(PropTypes.any)
 };
 

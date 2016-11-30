@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
 
 import Key from './Key.jsx';
-// import CreateKeyModal from './CreateKeyModal.jsx';
-// import EditKeyModal from './EditKeyModal.jsx';
 import ApiKeyModal from './ApiKeyModal.jsx';
 
 class Dashboard extends Component {

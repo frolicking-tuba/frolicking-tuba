@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
 
-class CreateKeyModal extends React.Component {
+class ApiKeyModal extends React.Component {
   constructor(props) {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -21,26 +21,23 @@ class CreateKeyModal extends React.Component {
   onFormSubmit(event) {
     event.preventDefault();
     const keyName = findDOMNode(this.keyName).value;
+    const endpSel = findDOMNode(this.endpointSelect);
+    const reqBody = endpSel ? JSON.parse(endpSel.value) : { type: 'url' };
 
-    console.log('keyName:', keyName);
     if (this.urlText) {
-      this.props.createNewKey({
-        name: keyName,
-        endpoint: findDOMNode(this.urlText).value,
-        type: 'url'
-      });
-    } else {
-      const requestBody = JSON.parse(findDOMNode(this.endpointSelect).value);
-
-      requestBody.name = keyName;
-      this.props.createNewKey(requestBody);
+      reqBody.endpoint = findDOMNode(this.urlText).value;
+      reqBody.type = 'url';
     }
+
+    reqBody.name = keyName;
+    reqBody.key = this.props.editKey;
+    this.props.createNewKey(reqBody);
   }
 
   onDropdownChange() {
-    const selectValue = findDOMNode(this.endpointSelect).value;
+    const selectValue = JSON.parse(findDOMNode(this.endpointSelect).value);
 
-    if (selectValue === 'addnewurl') {
+    if (selectValue.mode === 'newurl') {
       this.props.setModalModeAddUrl(true);
     } else {
       this.props.setModalModeAddUrl(false);
@@ -53,6 +50,21 @@ class CreateKeyModal extends React.Component {
     if (!showTextInput) {
       showTextInput = this.props.modalModeAddUrl;
     }
+
+    let defaultValues = this.props.keys.reduce((prev, key) => {
+      let values = prev;
+
+      if (values === null && key.key === this.props.editKey) {
+        values = {
+          name: key.name,
+          endpoint: `{"type":"${key.type}","endpoint":"${key.endpoint}"}`
+        };
+      }
+
+      return values;
+    }, null);
+
+    defaultValues = defaultValues || {};
 
     const urlTextInput = (
       <FormGroup controlId="formBasicText">
@@ -70,7 +82,7 @@ class CreateKeyModal extends React.Component {
         <ControlLabel>Select Endpoint</ControlLabel>
         <FormControl
           componentClass="select"
-          placeholder="select"
+          defaultValue={defaultValues.endpoint}
           ref={(ref) => { this.endpointSelect = ref; }}
           onChange={this.onDropdownChange}
         >
@@ -95,7 +107,9 @@ class CreateKeyModal extends React.Component {
             ))
           }
           <hr />
-          <option value="addnewurl">Add a new URL</option>
+          <option
+            value={'{"type":"url","mode":"newurl"}'}
+          >Add a new URL</option>
         </FormControl>
       </FormGroup>
     );
@@ -121,8 +135,8 @@ class CreateKeyModal extends React.Component {
       <Modal
         show={this.props.keymodal}
         onHide={() => {
-          this.props.setModalModeAddUrl(false);
-          this.props.hideModal();
+          // this.props.setModalModeAddUrl(false);
+          this.props.hideApikeyModal();
         }}
       >
         <Modal.Header closeButton />
@@ -132,7 +146,7 @@ class CreateKeyModal extends React.Component {
               <ControlLabel>Name</ControlLabel>
               <FormControl
                 type="text"
-                placeholder="Enter Name"
+                defaultValue={defaultValues.name}
                 ref={(ref) => { this.keyName = ref; }}
               />
             </FormGroup>
@@ -148,7 +162,9 @@ class CreateKeyModal extends React.Component {
             bsStyle="primary"
             onClick={this.onFormSubmit}
           >
-            Generate Key
+            {
+              this.props.mode === 'create' ? 'Generate Key' : 'Update'
+            }
           </Button>
         </Modal.Footer>
       </Modal>
@@ -156,23 +172,29 @@ class CreateKeyModal extends React.Component {
   }
 }
 
-CreateKeyModal.propTypes = {
+ApiKeyModal.propTypes = {
   keymodal: PropTypes.bool,
   modalModeAddUrl: PropTypes.bool,
   github: PropTypes.bool,
   urls: PropTypes.arrayOf(PropTypes.any),
+  keys: PropTypes.arrayOf(PropTypes.any),
   repos: PropTypes.arrayOf(PropTypes.any),
-  hideModal: PropTypes.func,
+  hideApikeyModal: PropTypes.func,
   setModalModeAddUrl: PropTypes.func,
-  createNewKey: PropTypes.func
+  createNewKey: PropTypes.func,
+  mode: PropTypes.string,
+  editKey: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
-  keymodal: state.keymodal.showModal,
-  modalModeAddUrl: state.keymodal.modalModeAddUrl,
+  keymodal: state.apikeymodal.show,
+  modalModeAddUrl: state.apikeymodal.modalModeAddUrl,
   github: state.auth.github,
   urls: state.urls.urls,
-  repos: state.repos.repos
+  keys: state.keys.data,
+  repos: state.repos.repos,
+  mode: state.apikeymodal.mode,
+  editKey: state.apikeymodal.key
 });
 
-export default connect(mapStateToProps, Actions)(CreateKeyModal);
+export default connect(mapStateToProps, Actions)(ApiKeyModal);

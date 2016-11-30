@@ -21,17 +21,17 @@ class ApiKeyModal extends React.Component {
   onFormSubmit(event) {
     event.preventDefault();
     const keyName = findDOMNode(this.keyName).value;
-    const requestBody = JSON.parse(findDOMNode(this.endpointSelect).value);
+    const endpSel = findDOMNode(this.endpointSelect);
+    const reqBody = endpSel ? JSON.parse(endpSel.value) : { type: 'url' };
 
-    console.log('keyName:', keyName);
     if (this.urlText) {
-      requestBody.endpoint = findDOMNode(this.urlText).value;
-      requestBody.type = 'url';
+      reqBody.endpoint = findDOMNode(this.urlText).value;
+      reqBody.type = 'url';
     }
 
-    requestBody.name = keyName;
-    requestBody.key = this.props.editKey;
-    this.props.createNewKey(requestBody);
+    reqBody.name = keyName;
+    reqBody.key = this.props.editKey;
+    this.props.createNewKey(reqBody);
   }
 
   onDropdownChange() {
@@ -188,7 +188,7 @@ ApiKeyModal.propTypes = {
 
 const mapStateToProps = (state) => ({
   keymodal: state.apikeymodal.show,
-  modalModeAddUrl: state.keymodal.modalModeAddUrl,
+  modalModeAddUrl: state.apikeymodal.modalModeAddUrl,
   github: state.auth.github,
   urls: state.urls.urls,
   keys: state.keys.data,

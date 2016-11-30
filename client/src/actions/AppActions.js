@@ -1,12 +1,9 @@
 import { browserHistory } from 'react-router';
 import { SIGN_OUT_USER,
   AUTH_USER, AUTH_ERROR,
-  FETCH_KEYS, OPEN_MODAL,
-  CLOSE_MODAL,
+  FETCH_KEYS,
   FETCH_URLS, UPDATE_GITHUB_STATUS,
-  FETCH_REPOS, SET_MODAL_MODE,
-  OPEN_EDIT_MODAL, CLOSE_EDIT_MODAL,
-  SET_EDIT_MODAL_MODE, OPEN_APIKEY_MODAL,
+  FETCH_REPOS, OPEN_APIKEY_MODAL,
   CLOSE_APIKEY_MODAL, SET_APIKEY_MODAL_MODE
 } from '../utils/AppConstants';
 
@@ -124,23 +121,10 @@ export const fetchGithubAuthStatus = () => ((dispatch) => {
 
 //*******Modal Related Actions*******//
 
-// create new key Modal actions
-export const showModal = () => ({ type: OPEN_MODAL });
-export const hideModal = () => ({ type: CLOSE_MODAL });
+// key Modal actions
 export const setModalModeAddUrl = (mode) => ({
-  type: SET_MODAL_MODE,
+  type: SET_APIKEY_MODAL_MODE,
   modalModeAddUrl: mode
-});
-
-// edit existing key Modal actions
-export const showEditModal = (key) => ({
-  type: OPEN_EDIT_MODAL,
-  key
-});
-export const hideEditModal = () => ({ type: CLOSE_EDIT_MODAL });
-export const setEditModalNewUrl = (mode) => ({
-  type: SET_EDIT_MODAL_MODE,
-  mode
 });
 
 export const showApikeyModal = (key = null) => ({
@@ -149,10 +133,6 @@ export const showApikeyModal = (key = null) => ({
   mode: key === null ? 'create' : 'edit'
 });
 export const hideApikeyModal = () => ({ type: CLOSE_APIKEY_MODAL });
-export const setApikeyModalMode = (mode) => ({
-  type: SET_APIKEY_MODAL_MODE,
-  mode
-});
 
 // both modals
 export const createNewUrl = (urlObject) => (
@@ -194,8 +174,7 @@ export const createNewKey = ({ key, name, type, endpoint }) => (
       dispatch(fetchUrls());
       dispatch(fetchGithubAuthStatus());
       dispatch(setModalModeAddUrl(false));
-      dispatch(hideModal());
-      dispatch(hideEditModal());
+      dispatch(hideApikeyModal());
       browserHistory.replace('/dashboard');
     })
     .catch((error) => {

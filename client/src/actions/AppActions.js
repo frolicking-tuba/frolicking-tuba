@@ -6,7 +6,8 @@ import { SIGN_OUT_USER,
   FETCH_URLS, UPDATE_GITHUB_STATUS,
   FETCH_REPOS, SET_MODAL_MODE,
   OPEN_EDIT_MODAL, CLOSE_EDIT_MODAL,
-  SET_EDIT_MODAL_MODE
+  SET_EDIT_MODAL_MODE, OPEN_APIKEY_MODAL,
+  CLOSE_APIKEY_MODAL, SET_APIKEY_MODAL_MODE
 } from '../utils/AppConstants';
 
 export const authUser = (email) => ({
@@ -139,6 +140,17 @@ export const showEditModal = (key) => ({
 export const hideEditModal = () => ({ type: CLOSE_EDIT_MODAL });
 export const setEditModalNewUrl = (mode) => ({
   type: SET_EDIT_MODAL_MODE,
+  mode
+});
+
+export const showApikeyModal = (key = null) => ({
+  type: OPEN_APIKEY_MODAL,
+  key,
+  mode: key === null ? 'create' : 'edit'
+});
+export const hideApikeyModal = () => ({ type: CLOSE_APIKEY_MODAL });
+export const setApikeyModalMode = (mode) => ({
+  type: SET_APIKEY_MODAL_MODE,
   mode
 });
 

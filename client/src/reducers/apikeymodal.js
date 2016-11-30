@@ -6,7 +6,8 @@ const assign = Object.assign;
 const initialState = {
   show: false,
   key: null,
-  mode: null
+  mode: null,
+  modalModeAddUrl: false
 };
 
 export default function apikeyModalReducer(state = initialState, action) {
@@ -24,7 +25,7 @@ export default function apikeyModalReducer(state = initialState, action) {
       mode: null
     });
   case SET_APIKEY_MODAL_MODE:
-    return assign({}, state, { mode: action.mode });
+    return assign({}, state, { modalModeAddUrl: action.modalModeAddUrl });
   default:
     return state;
   }
